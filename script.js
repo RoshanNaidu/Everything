@@ -13,9 +13,9 @@ const messageLink = document.getElementById("messageLink");
 
 // Optional: add your WhatsApp link here.
 // Example format: "https://wa.me/15551234567?text=I%20read%20your%20story%20%F0%9F%92%97"
-const YOUR_MESSAGE_LINK = "#";
+const YOUR_MESSAGE_LINK = "https://wa.me/13173397595?text=Yes%2C%20I%20will%20give%20you%20a%20chance%Roshan";
 messageLink.href = YOUR_MESSAGE_LINK;
-if (YOUR_MESSAGE_LINK === "#") {
+if (YOUR_MESSAGE_LINK === "https://wa.me/13173397595?text=Yes%2C%20I%20will%20give%20you%20a%20chance%Roshan") {
   messageLink.style.display = "none";
 }
 
