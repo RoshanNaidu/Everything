@@ -11,11 +11,13 @@ const modalTitle = document.getElementById("modalTitle");
 const modalText = document.getElementById("modalText");
 const messageLink = document.getElementById("messageLink");
 
-// Optional: add your WhatsApp link here.
-// Example format: "https://wa.me/15551234567?text=I%20read%20your%20story%20%F0%9F%92%97"
-const YOUR_MESSAGE_LINK = "https://wa.me/13173397595?text=Yes%2C%20I%20will%20give%20you%20a%20chance%Roshan";
-messageLink.href = YOUR_MESSAGE_LINK;
-if (YOUR_MESSAGE_LINK === "https://wa.me/13173397595?text=Yes%2C%20I%20will%20give%20you%20a%20chance%Roshan") {
+// Paste your Formspree endpoint here.
+// Example: "https://formspree.io/f/abcdwxyz"
+const RESPONSE_ENDPOINT = "PASTE_YOUR_FORMSPREE_ENDPOINT_HERE";
+
+// You said you do not need WhatsApp/message functionality,
+// so this hides the message button inside the popup.
+if (messageLink) {
   messageLink.style.display = "none";
 }
 
@@ -59,6 +61,35 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".story-copy p").forEach((paragraph) => observer.observe(paragraph));
 
+async function sendAnswerToMe(answer) {
+  if (!RESPONSE_ENDPOINT || RESPONSE_ENDPOINT === "PASTE_YOUR_FORMSPREE_ENDPOINT_HERE") {
+    console.warn("Add your Formspree endpoint in script.js first.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("answer", answer);
+  formData.append("subject", `Radhika clicked: ${answer}`);
+  formData.append("page", window.location.href);
+  formData.append("clicked_at", new Date().toISOString());
+
+  try {
+    const response = await fetch(RESPONSE_ENDPOINT, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Formspree error: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Could not send the answer:", error);
+  }
+}
+
 function openModal(type) {
   if (type === "yes") {
     modalTitle.textContent = "You just made my world brighter.";
@@ -80,8 +111,15 @@ function closeModal() {
   document.body.classList.remove("modal-open");
 }
 
-yesButton.addEventListener("click", () => openModal("yes"));
-timeButton.addEventListener("click", () => openModal("time"));
+yesButton.addEventListener("click", () => {
+  sendAnswerToMe("Yes, I’ll give you a chance");
+  openModal("yes");
+});
+
+timeButton.addEventListener("click", () => {
+  sendAnswerToMe("I need a little time");
+  openModal("time");
+});
 modalClose.addEventListener("click", closeModal);
 responseModal.addEventListener("click", (event) => {
   if (event.target === responseModal) closeModal();
