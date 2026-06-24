@@ -92,7 +92,7 @@ async function sendAnswerToMe(answer) {
 
 function openModal(type) {
   if (type === "yes") {
-    modalTitle.textContent = "You just made my world brighter.";
+    modalTitle.textContent = "My World has changed Forever...";
     modalText.textContent = "This one chance means more to me than I can put into words.";
     createHeartConfetti();
   } else {
