@@ -13,7 +13,7 @@ const messageLink = document.getElementById("messageLink");
 
 // Paste your Formspree endpoint here.
 // Example: "https://formspree.io/f/abcdwxyz"
-const RESPONSE_ENDPOINT = "PASTE_YOUR_FORMSPREE_ENDPOINT_HERE";
+const RESPONSE_ENDPOINT = "https://formspree.io/f/mykqkjgz";
 
 // You said you do not need WhatsApp/message functionality,
 // so this hides the message button inside the popup.
