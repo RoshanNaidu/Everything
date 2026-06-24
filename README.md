@@ -1,3 +1,3 @@
-# For Radhika - Proposal Website
+# Everything
 
 https://roshannaidu.github.io/Everything/
